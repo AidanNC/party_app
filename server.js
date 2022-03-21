@@ -10,8 +10,8 @@ import { exit } from "process";
 const { MongoClient } = pkg;
 
 //const uri = "mongodb+srv://super:uKs1KLMWfAXvse4b@cmu-party-app.bflkv.mongodb.net/cmu-party-app?retryWrites=true&w=majority"
-//const uri = "mongodb+srv://super:uKs1KLMWfAXvse4b@cmu-party-app.bflkv.mongodb.net/test?retryWrites=true&w=majority"
-const uri = process.env.MONGODB_URI;
+const uri = "mongodb+srv://super:uyOXWHfYTKjUA3zQ@cmu-party-app.bflkv.mongodb.net/test?retryWrites=true&w=majority"
+//const uri = process.env.MONGODB_URI;
 
 
 const dotenv = _dotenv["default"];
@@ -58,8 +58,17 @@ async function update(value) {
     
         const database = client.db('test');
         const attending = database.collection('attending');
+
+        const myobj = 
+            {
+                title:'solo',
+                count:value
+            }
+            ;
+        const res = await attending.insertOne(myobj); 
+        /*
         let temp = await attending.findOne({ "title": "solo" } );
-    
+        
         if(temp == null){
             const myobj = 
             {
@@ -84,6 +93,7 @@ async function update(value) {
             },
           };
         const result = await attending.updateOne({ "title": "solo" }, updateDoc);
+        */
         
     } catch(err) {
         console.log(err);
@@ -114,8 +124,15 @@ app.get('/secret/count', async (req, res) => {
     
         const database = client.db('test');
         const attending = database.collection('attending');
-        let temp = await attending.findOne({ "title": "solo" } );
-        res.send({ count: temp['count'] });
+        //let temp = await attending.findOne({ "title": "solo" } );
+        //const cursor = attending.find({"title":"solo"});
+        //let total = 0
+        //await cursor.forEach(element => total+=element['count']);
+        const pluscount = await attending.countDocuments({"count":1});
+        const minuscount = await attending.countDocuments({"count":-1});
+        
+
+        res.send({ count: pluscount-minuscount });
         
     } catch(err) {
         console.log(err);
