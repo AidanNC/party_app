@@ -9,9 +9,9 @@ import pkg from 'mongodb';
 import { exit } from "process";
 const { MongoClient } = pkg;
 
-//const uri = "mongodb+srv://super:uKs1KLMWfAXvse4b@cmu-party-app.bflkv.mongodb.net/cmu-party-app?retryWrites=true&w=majority"
-const uri = "mongodb+srv://super:uyOXWHfYTKjUA3zQ@cmu-party-app.bflkv.mongodb.net/test?retryWrites=true&w=majority"
-//const uri = process.env.MONGODB_URI;
+
+//const uri = "mongodb+srv://super:_____@cmu-party-app.bflkv.mongodb.net/test?retryWrites=true&w=majority"
+const uri = process.env.MONGODB_URI;
 
 
 const dotenv = _dotenv["default"];
