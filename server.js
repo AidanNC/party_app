@@ -94,11 +94,11 @@ async function update(value) {
     }
 }
 app.get("/db", async function (req, res) {
-    update(-1);
+    update(0);
     res.redirect('/main');
   });
 
-app.get('/main', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile('main.html', { root: __dirname});
 });
 
@@ -140,9 +140,6 @@ app.post('/main',
     });
 
 
-app.get('/', (req, res) => {
-    res.redirect('/main');
-});
 
 app.get('*', (req, res) => {
     res.send(JSON.stringify({ result: 'command-not-found' }));
